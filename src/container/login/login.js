@@ -1,3 +1,4 @@
+// 登录页面
 import React, { Component } from 'react'
 import Logo from '../../component/logo/logo'
 import { List, InputItem, WingBlank, WhiteSpace, Button } from 'antd-mobile'
@@ -40,7 +41,7 @@ class Login extends Component {
       <div>
         {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : null}
         <Logo></Logo>
-        <h2>我是登录页1</h2>
+        <h2>我是登录页</h2>
         <WingBlank>
           <List>
             { this.props.msg ? <p className='error-msg'>{this.props.msg}</p> : '' }

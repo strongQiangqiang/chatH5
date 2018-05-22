@@ -24,7 +24,7 @@ class AvatarSelector extends Component {
       </div>
     ) : '请选择头像'
     return (
-      <div style={{ marginTop: '10px' }}> 
+      <div> 
         <List renderHeader={() => girdHeader}>
           <Grid
             data={avatarList}

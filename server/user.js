@@ -10,9 +10,12 @@ const _filter = {'pwd': 0, '__v': 0}
 
 // 调试的用户列表接口
 Router.get('/list', function(req, res) {
+  // get 用req.query获取，post用req.body获取
+  const { type } = req.query
   // User.remove({}, function(e, d) {})
-  User.find({}, function(err, doc) {
-    return res.json(doc)
+  User.find({type}, function(err, doc) {
+    // 不能直接返回doc，要偶先参会code为0
+    return res.json({ code: 0, data: doc })
   })
 })
 // 接受参数接口

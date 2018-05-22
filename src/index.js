@@ -18,7 +18,7 @@ import Login from './container/login/login'
 import BossInfo from './container/bossinfo/bossinfo'
 import GeniusInfo from './container/geniusinfo/geniusinfo'
 import Register from './container/register/register'
-import Dashboard from './container/dashboard/dashboard'
+import Dashboard from 'Component/dashboard/dashboard'
 import AuthRoute from 'Component/authroute/authroute'
 
 // 这里使用合并后的reducer
@@ -34,10 +34,6 @@ const store = createStore(reducers, compose(
   reduxDevtools
 ))
 
-function Boss() {
-  return <h2>Boss页面</h2>
-}
-
 // boss genius me msg 4个页面
 ReactDom.render(
   (
@@ -47,7 +43,7 @@ ReactDom.render(
         <div>
           <AuthRoute></AuthRoute>
           <Switch>
-            <Route path='/boss' component={Boss}></Route>
+            {/* <Route path='/boss' component={Boss}></Route> */}
             <Route path='/bossinfo' component={BossInfo}></Route>
             <Route path='/geniusinfo' component={GeniusInfo}></Route>
             <Route path='/login' component={Login}></Route>
