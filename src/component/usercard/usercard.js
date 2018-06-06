@@ -1,5 +1,6 @@
 // boss首页
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Card, WingBlank, WhiteSpace } from 'antd-mobile'
 import { getUserList } from '../../redux/chatuser.redux'
@@ -9,7 +10,10 @@ import { getUserList } from '../../redux/chatuser.redux'
   { getUserList }
 )
 
-class Boss extends Component { 
+class UserCard extends Component { 
+  static PropTypes = {
+    userlist: PropTypes.array.isRequired
+  }
   componentDidMount() {
     this.props.getUserList('genius')
   }
@@ -31,10 +35,11 @@ class Boss extends Component {
                 />
                 <Body>
                   {
-                    v.desc.split('\n').map(v => (
-                      <div key={v}>{v}</div>
+                    v.desc.split('\n').map(d => (
+                      <div key={d}>{d}</div>
                     ))
                   }
+                  { v.type === 'boss' ? <div>薪资:{v.money}</div> : null }
                 </Body>
               </Card>
             ) : null
@@ -45,4 +50,4 @@ class Boss extends Component {
   }
 }
 
-export default Boss
+export default UserCard
