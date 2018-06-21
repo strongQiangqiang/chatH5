@@ -1,5 +1,5 @@
 // 组件只获取用户信息，做一些简单的跳转
-import React, { Component } from 'react'
+import { Component } from 'react'
 import axios from 'axios'
 import { loadData } from '../../redux/user.redux'
 import { withRouter } from 'react-router-dom'

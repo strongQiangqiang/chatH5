@@ -6,12 +6,10 @@ import { NavBar } from 'antd-mobile'
 import NavLinkBar from 'Component/navlink/navlink'
 import Boss from 'Component/boss/boss'
 import Genius from 'Component/genius/genius'
+import User from 'Component/user/user'
 
 function Msg() {
   return <h1>消息列表首页</h1>
-}
-function User() {
-  return <h1>个人中心</h1>
 }
 @connect(
   state => state
@@ -65,7 +63,7 @@ class Dashboard extends Component {
             navList.find(v => v.path === pathname).title
           }
         </NavBar>
-        <div style={{ marginTop: 10}}>
+        <div>
           <Switch>
             {
               navList.map(v => (

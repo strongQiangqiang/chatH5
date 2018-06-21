@@ -27,8 +27,8 @@ class UserCard extends Component {
           this.props.userlist.map(v => (
             // 如果没有图片证明美誉完善信息
             v.avatar ? (
-              <div>
-                <Card key={v._id}>
+              <div key={v._id}>
+                <Card>
                   <Header
                     title={v.user}
                     thumb={require(`../img/${v.avatar}.png`)}
