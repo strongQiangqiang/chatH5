@@ -27,21 +27,25 @@ class UserCard extends Component {
           this.props.userlist.map(v => (
             // 如果没有图片证明美誉完善信息
             v.avatar ? (
-              <Card key={v._id}>
-                <Header
-                  title={v.user}
-                  thumb={require(`../img/${v.avatar}.png`)}
-                  extra={<span>{v.title}</span>}
-                />
-                <Body>
-                  {
-                    v.desc.split('\n').map(d => (
-                      <div key={d}>{d}</div>
-                    ))
-                  }
-                  { v.type === 'boss' ? <div>薪资:{v.money}</div> : null }
-                </Body>
-              </Card>
+              <div>
+                <Card key={v._id}>
+                  <Header
+                    title={v.user}
+                    thumb={require(`../img/${v.avatar}.png`)}
+                    extra={<span>{v.title}</span>}
+                  />
+                  <Body>
+                    { v.type === 'boss' ? <div>公司:{v.company}</div> : null }
+                    {
+                      v.desc.split('\n').map(d => (
+                        <div key={d}>{d}</div>
+                      ))
+                    }
+                    { v.type === 'boss' ? <div>薪资:{v.money}</div> : null }
+                  </Body>
+                </Card>
+                <WhiteSpace/>
+              </div>
             ) : null
           ))
         }
