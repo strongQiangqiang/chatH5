@@ -3,9 +3,10 @@ import axios from 'axios'
 import { getRedirectPath } from '../util'
 
 // 登录，注册的信息
-const AUTH_SUCCESS = 'AUTH_SUCCESS'
+const AUTH_SUCCESS = 'AUTH_SUCCESS' // 是否登录成功
 const ERROR_MSG = 'ERROR_MSG'
 const LOAD_DATA = 'LOAD_DATA'
+const LOGOUT = 'LOGOUT' // 退出登录
 
 const initState = {
   redirectTo: '', // 完成后跳转
@@ -23,6 +24,8 @@ export function user(state = initState, action) {
       return { ...state, ...action.payload }
     case ERROR_MSG:
       return { ...state, isAuth: false, msg: action.msg }
+    case LOGOUT:
+      return { ...initState, redirectTo: '/login'}
     default:
       return state
   }
@@ -36,6 +39,11 @@ function authSuccess(obj) {
 
 function errorMsg(msg) {
   return { type: ERROR_MSG, msg }
+}
+
+// 退出登录
+export function logoutSubmit() {
+  return { type: LOGOUT }
 }
 
 // 获取用户信息

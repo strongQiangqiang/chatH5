@@ -37,14 +37,15 @@ class Login extends Component {
   is(str) {
   }
   render() {
+    const { redirectTo, msg } = this.props
     return (
       <div>
-        {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : null}
+        {redirectTo && redirectTo !== '/login' ? <Redirect to={redirectTo} /> : null}
         <Logo></Logo>
         <h2>我是登录页</h2>
         <WingBlank>
           <List>
-            { this.props.msg ? <p className='error-msg'>{this.props.msg}</p> : '' }
+            { msg ? <p className='error-msg'>{msg}</p> : '' }
             <InputItem onChange={v => this.handleChange('user', v)}>用户</InputItem>
             <InputItem onChange={v => this.handleChange('pwd', v)}>密码</InputItem>
           </List>
