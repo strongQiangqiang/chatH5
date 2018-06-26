@@ -9,6 +9,9 @@ const Chat = model.getModel('chat')
 // 这里定义接口返回参数一部分不显示的值
 const _filter = {'pwd': 0, '__v': 0}
 
+// 数据清空
+// Chat.remove({}, function(e, doc) {})
+
 // 调试的用户列表接口
 Router.get('/list', function(req, res) {
   // get 用req.query获取，post用req.body获取

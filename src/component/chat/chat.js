@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import io from 'socket.io-client'
-import { List, InputItem } from 'antd-mobile'
+import { NavBar, List, InputItem } from 'antd-mobile'
 import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux'
 
+const Item = List.Item
 // 由于我们跨域，后端是9093前端是3000，这里需要链接下
 const socket = io('ws://localhost:9093')
 @connect(
@@ -39,11 +40,27 @@ class Chat extends Component {
   }
   render() {
     const { text, msg } = this.state
+    const { chat } = this.props
+    const user = this.props.match.params.user
     return (
-      <div>
+      <div id='chat-page'>
+        <NavBar mode='dark'>
+          {user}
+        </NavBar>
         {
-          msg.map(v => {
-            return <p key={v}>{v}</p>
+          chat.chatmsg.map(v => {
+            return v.from === user ? (
+              <List key={v._id}>
+                <Item>{v.content}</Item>
+              </List>
+            ) : (
+              <List key={v._id}>
+                <Item
+                  extra={'avatar'}
+                  className='chat-me'
+                >{v.content}</Item>
+              </List>
+            )
           })
         }
         <div className='stick-footer'>
