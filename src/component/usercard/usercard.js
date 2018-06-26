@@ -1,25 +1,22 @@
 // boss首页
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import { Card, WingBlank, WhiteSpace } from 'antd-mobile'
-import { getUserList } from '../../redux/chatuser.redux'
+import { withRouter } from 'react-router-dom'
 
-@connect(
-  state => state.chatuser,
-  { getUserList }
-)
+const Header = Card.Header
+const Body = Card.Body
+@withRouter
 
 class UserCard extends Component { 
-  static PropTypes = {
+  static propTypes = {
     userlist: PropTypes.array.isRequired
   }
-  componentDidMount() {
-    this.props.getUserList('genius')
+  // 点击进入聊天页面
+  handleClick = (v) => {
+    this.props.history.push(`/chat/${v.user}`)
   }
   render() {
-    const Header = Card.Header
-    const Body = Card.Body
     return (
       <WingBlank>
         <WhiteSpace/>
@@ -28,7 +25,9 @@ class UserCard extends Component {
             // 如果没有图片证明美誉完善信息
             v.avatar ? (
               <div key={v._id}>
-                <Card>
+                <Card
+                  onClick={() => this.handleClick(v)}
+                >
                   <Header
                     title={v.user}
                     thumb={require(`../img/${v.avatar}.png`)}

@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 
 export default function imoocFrom(Comp) {
-  return class WrapperComp extends React.Component{
+  return class WrapperComp extends Component{
     constructor(props) {
       super(props)
       this.state = {}

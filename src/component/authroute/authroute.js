@@ -21,7 +21,7 @@ class AuthRoute extends Component {
     }
     // 获取用户信息
     axios.get('/user/info').then(res => {
-      console.log(res)
+      // console.log(res)
       if (res.status === 200) {
         if (res.data.code === 0) {
           // 有登录信息的

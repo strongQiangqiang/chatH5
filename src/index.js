@@ -20,6 +20,7 @@ import GeniusInfo from './container/geniusinfo/geniusinfo'
 import Register from './container/register/register'
 import Dashboard from 'Component/dashboard/dashboard'
 import AuthRoute from 'Component/authroute/authroute'
+import Chat from 'Component/chat/chat'
 
 // 这里使用合并后的reducer
 import reducers from './reducer'
@@ -48,6 +49,7 @@ ReactDom.render(
             <Route path='/geniusinfo' component={GeniusInfo}></Route>
             <Route path='/login' component={Login}></Route>
             <Route path='/register' component={Register}></Route>
+            <Route path='/chat/:user' component={Chat}></Route>
             <Route component={Dashboard}></Route>
           </Switch>
         </div>

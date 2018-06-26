@@ -24,40 +24,40 @@ hello()
 */
 
 // 可以当做引的外部组件
-function WrapperHello(Comp) {
-  class WrapComp extends React.Component{
-    render() {
-      return (
-        <div>
-          <p>这是HOC高阶组件特有的元素</p>
-          <Comp { ...this.props }></Comp>
-        </div>
-      )
-    }
-  }
-  /*
-    // 反向继承，可以做渲染劫持
-    class WrapComp extends Comp{
-      componentDidMount() {
-        console.log('高阶组件新增的生命周期，加载完成')
-      }
-      render() {
-        return <Comp />
-      }
-    }
-  */
-  return WrapComp
-}
+// function WrapperHello(Comp) {
+//   class WrapComp extends React.Component{
+//     render() {
+//       return (
+//         <div>
+//           <p>这是HOC高阶组件特有的元素</p>
+//           <Comp { ...this.props }></Comp>
+//         </div>
+//       )
+//     }
+//   }
+//   /*
+//     // 反向继承，可以做渲染劫持
+//     class WrapComp extends Comp{
+//       componentDidMount() {
+//         console.log('高阶组件新增的生命周期，加载完成')
+//       }
+//       render() {
+//         return <Comp />
+//       }
+//     }
+//   */
+//   return WrapComp
+// }
 // 其实所谓的高阶组件就是给一个组件,返回另外一个组件,另外一个组件吧原来的组件包裹一层，这样我们就在原有的基础上可以添加或者增强一些东西
 // 主要有两种功能的高阶组件，使用高阶组件具体的作用就是代码复用，逻辑抽象
 // 第一种叫属性代理:我们可以个上面Comp加任意的属性，也可以在Comp上面或者下面添加任意的元素
 // 第二种叫反向继承
-@WrapperHello
-class Hello extends React.Component{
-  render() {
-    return <h2>hello haha I love</h2>
-  }
-}
+// @WrapperHello
+// class Hello extends React.Component{
+//   render() {
+//     return <h2>hello haha I love</h2>
+//   }
+// }
 // Hello = WrapperHello(Hello)
 
 @connect(
