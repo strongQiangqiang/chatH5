@@ -1,3 +1,4 @@
+// 展示列表的redux
 import axios from 'axios'
 
 const USER_LIST = 'USER_LIST'

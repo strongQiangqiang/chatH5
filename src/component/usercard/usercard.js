@@ -14,7 +14,7 @@ class UserCard extends Component {
   }
   // 点击进入聊天页面
   handleClick = (v) => {
-    this.props.history.push(`/chat/${v.user}`)
+    this.props.history.push(`/chat/${v._id}`)
   }
   render() {
     return (

@@ -1,9 +1,15 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import io from 'socket.io-client'
 import { List, InputItem } from 'antd-mobile'
- 
+import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux'
+
 // 由于我们跨域，后端是9093前端是3000，这里需要链接下
 const socket = io('ws://localhost:9093')
+@connect(
+  state => state,
+ { getMsgList, sendMsg, recvMsg }
+)
 
 class Chat extends Component {
   constructor(props) {
@@ -14,15 +20,21 @@ class Chat extends Component {
     }
   }
   componentDidMount() {
-    socket.on('recvmsg', (data) => {
-      this.setState({
-        msg: [...this.state.msg, data.text]
-      })
-    })
+    this.props.getMsgList()
+    this.props.recvMsg()
+    // socket.on('recvmsg', (data) => {
+    //   this.setState({
+    //     msg: [...this.state.msg, data.text]
+    //   })
+    // })
   }
   handleSubmit = () => {
     // 这里向后端发送信息
-    socket.emit('sendmsg', {text: this.state.text})
+    // socket.emit('sendmsg', {text: this.state.text})
+    const from = this.props.user._id
+    const to = this.props.match.params.user
+    const msg = this.state.text
+    this.props.sendMsg({ from, to, msg })
     this.setState({ text: '' })
   }
   render() {

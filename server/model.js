@@ -7,6 +7,7 @@ const DB_URL = 'mongodb://127.0.0.1:27017/imooc-chat'
 mongoose.connect(DB_URL)
 
 const models = {
+  // 用户信息
   user: {
     'user': { type: String, require: true },
     'pwd': { type: String, require: true },
@@ -19,10 +20,21 @@ const models = {
     'title': { type: String },
     // 如果你是boss还有两个字段
     'company': { type: String },
+    // 薪资字段
     'money': { type: String }
   },
+  // 聊天信息
   chat: {
-
+    // 两个人发送内容是在一起的，每个聊天唯一的标识
+    'chatid': { type: String, require: true },
+    'from': { type: String, require: true },
+    'to': { type: String, require: true },
+    // 信息是否已读
+    'read': { type: Boolean, require: false },
+    // 聊天内容
+    'content': { type: String, require: true, default: '' },
+    // 发送时间
+    'create_time': { type: Number, default: new Date().getTime() },
   }
 }
 

@@ -5,7 +5,10 @@ const userRouter = require('./user')
 const bodyParser = require('body-parser')
 // 做cookie需要的中间件
 const cookieParser = require('cookie-parser')
-
+// 获取数据库数据
+const model = require('./model')
+const User = model.getModel('user')
+const Chat = model.getModel('chat')
 // 新建app
 const app = express()
 
@@ -14,12 +17,15 @@ const app = express()
 // 如果想合express配合，需要socket.io和http统一起来
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
-// io是全局的
+// io是全局的,on是监听，emit是发送
 io.on('connection', function(socket) {
-  console.log('user login')
   socket.on('sendmsg', function(data) {
     console.log(data)
-    io.emit('recvmsg', data)
+    const { from, to, msg } = data
+    const chatid = [from, to].sort().join('_')
+    Chat.create({ chatid, from, to, content: msg }, function(err, doc) {
+      io.emit('recvmsg', Object.assign({}, doc._doc))
+    })
   })
 })
 /*----------------socket代码End---------------------*/
