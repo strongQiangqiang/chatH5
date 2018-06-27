@@ -34,7 +34,7 @@ const models = {
     // 聊天内容
     'content': { type: String, require: true, default: '' },
     // 发送时间
-    'create_time': { type: Number, default: new Date().getTime() },
+    'create_time':{ 'type': Number,'default': Date.now }
   }
 }
 

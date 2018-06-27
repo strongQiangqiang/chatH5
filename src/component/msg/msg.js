@@ -12,12 +12,9 @@ const Brief = Item.Brief
 )
 
 class Msg extends Component {
-  constructor(props) {
-    super(props)
-  }
   // 取数组最后一条的数据
   getLast(arr){
-		return arr[arr.length-1]
+		return arr[arr.length - 1]
 	}
   render() {
     // 1. eslint代码校验工具
@@ -34,21 +31,22 @@ class Msg extends Component {
     // console.log([3,1,2,6,5].sort(function(a,b){
 		// 	return b-a
 		// }))
-		// console.log(Object.values({name:'imooc',age:18}))
-		const chatList = Object.values(msgGroup).sort((a,b)=>{
-			const a_last = this.getLast(a).create_time
+    // console.log(Object.values({name:'imooc',age:18}))
+    // 最新的对话应该在列表最上面，用sort进行排序
+		const chatList = Object.values(msgGroup).sort((a, b) => {
+      const a_last = this.getLast(a).create_time
 			const b_last = this.getLast(b).create_time
 			return b_last - a_last
-		})
+    })
     return (
       <div>
         {
           chatList.map(v=>{
-            console.log(v)
             // 取聊天信息数组最后一个数据
             const lastItem = this.getLast(v)
             // 判断当前最后一条信息的id是自己还是对方
             const targetId = v[0].from === userid ? v[0].to : v[0].from
+            // 过滤后的未读消息条数
             const unreadNum = v.filter(v => !v.read && v.to === userid).length
             if (!userinfo[targetId]) return null
             // const name = userinfo[targetId]?userinfo[targetId].name:''
@@ -58,7 +56,7 @@ class Msg extends Component {
                 <Item
                   extra={<Badge text={unreadNum}></Badge>}
                   thumb={require(`../img/${userinfo[targetId].avatar}.png`)}
-                  arrow="horizontal"
+                  arrow='horizontal'
                   onClick={()=>{
                     this.props.history.push(`/chat/${targetId}`)
                   }}
