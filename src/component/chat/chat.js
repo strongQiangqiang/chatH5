@@ -21,11 +21,11 @@ class Chat extends Component {
     }
   }
   componentDidMount() {
-    // socket.on('recvmsg', (data) => {
-    //   this.setState({
-    //     msg: [...this.state.msg, data.text]
-    //   })
-    // })
+    // 获取消息列表数据,如果没有信息重新获取
+    if (!this.props.chat.chatmsg.length) {
+      this.props.getMsgList()
+      this.props.recvMsg()
+    }
   }
   handleSubmit = () => {
     // 这里向后端发送信息
@@ -37,17 +37,18 @@ class Chat extends Component {
     this.setState({ text: '' })
   }
   render() {
+    const userid = this.props.match.params.user
     const { text, msg } = this.state
     const { chat } = this.props
-    const user = this.props.match.params.user
+    if (!chat.users[userid]) return null
     return (
       <div id='chat-page'>
         <NavBar mode='dark'>
-          {user}
+          {chat.users[userid].name}
         </NavBar>
         {
-          chat.chatmsg.map(v => {
-            return v.from === user ? (
+          chat.chatmsg && chat.chatmsg.map(v => {
+            return v.from === userid ? (
               <List key={v._id}>
                 <Item>{v.content}</Item>
               </List>

@@ -1,4 +1,4 @@
-// 聊天内容的redux
+// 处理聊天内容的redux
 import axios from 'axios'
 import io from 'socket.io-client'
 import { stat } from 'fs';
@@ -14,6 +14,7 @@ const MSG_READ = 'MSG_READ'
 
 const initState = {
   chatmsg: [],
+  users: {},
   unread: 0 // 未读消息数量
 }
 
@@ -22,8 +23,9 @@ export function chat(state=initState, action) {
     case MSG_LIST:
       return {
         ...state,
-        chatmsg: action.payload,
-        unread: action.payload.filter(v => !v.read).length
+        chatmsg: action.payload.msgs,
+        users: action.payload.users,
+        unread: action.payload.msgs.filter(v => !v.read).length
       }
     case MSG_RECV:
       return {
@@ -37,8 +39,8 @@ export function chat(state=initState, action) {
   }
 }
 
-function msgList(msgs) {
-  return { type: 'MSG_LIST', payload: msgs }
+function msgList(msgs, users) {
+  return { type: 'MSG_LIST', payload: { msgs, users } }
 }
 
 function msgRecv(msg) {
@@ -49,7 +51,7 @@ export function getMsgList() {
   return dispatch => {
     axios.get('/user/getmsglist').then(res => {
       if (res.status === 200 && res.data.code === 0) {
-        dispatch(msgList(res.data.msgs))
+        dispatch(msgList(res.data.msgs, res.data.users))
       }
     })
   }

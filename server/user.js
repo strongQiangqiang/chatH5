@@ -26,11 +26,18 @@ Router.get('/list', function(req, res) {
 Router.get('/getmsglist', function(req, res) {
   // 获取用户所有信息
   const user = req.cookies.user
-  // '$or': [{ from: user, to: user}]
-  Chat.find({}, function(err, doc) {
-    if (!err) {
-      return res.json({ code: 0, msgs: doc })
-    }
+  // 查询用户所有信息
+  User.find({}, function(e, userdoc) {
+    let users = {}
+    userdoc.forEach(v => {
+      users[v._id] = { name: v.user, avatar: v.avatar }
+    })
+    // 查询聊天信息
+    Chat.find({ '$or': [{ from: user, to: user}] }, function(err, doc) {
+      if (!err) {
+        return res.json({ code: 0, msgs: doc, users: users })
+      }
+    })
   })
 })
 // 接受参数接口
