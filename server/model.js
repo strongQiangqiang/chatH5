@@ -30,7 +30,7 @@ const models = {
     'from': { type: String, require: true },
     'to': { type: String, require: true },
     // 信息是否已读
-    'read': { type: Boolean, require: false },
+    'read': { type: Boolean, default: false },
     // 聊天内容
     'content': { type: String, require: true, default: '' },
     // 发送时间

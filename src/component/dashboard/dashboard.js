@@ -25,8 +25,10 @@ class Dashboard extends Component {
   }
   componentDidMount() {
     // 获取消息列表数据
-    this.props.getMsgList()
-    this.props.recvMsg()
+    if (!this.props.chat.chatmsg.length) {
+      this.props.getMsgList()
+      this.props.recvMsg()
+    }
   }
   render() {
     const user = this.props.user
