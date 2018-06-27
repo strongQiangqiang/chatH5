@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import io from 'socket.io-client'
-import { NavBar, List, InputItem } from 'antd-mobile'
+import { NavBar, List, InputItem, Icon } from 'antd-mobile'
 import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux'
 
 const Item = List.Item
@@ -43,19 +43,26 @@ class Chat extends Component {
     if (!chat.users[userid]) return null
     return (
       <div id='chat-page'>
-        <NavBar mode='dark'>
+        <NavBar
+          mode='dark'
+          icon={<Icon type='left' />}
+          onLeftClick={() => {
+            this.props.history.goBack()
+          }}
+        >
           {chat.users[userid].name}
         </NavBar>
         {
           chat.chatmsg && chat.chatmsg.map(v => {
+            const avatar = require(`../img/${chat.users[v.from].avatar}.png`)
             return v.from === userid ? (
               <List key={v._id}>
-                <Item>{v.content}</Item>
+                <Item thumb={avatar}>{v.content}</Item>
               </List>
             ) : (
               <List key={v._id}>
                 <Item
-                  extra={'avatar'}
+                  extra={<img src={avatar} />}
                   className='chat-me'
                 >{v.content}</Item>
               </List>
