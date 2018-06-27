@@ -1,7 +1,6 @@
 // 处理聊天内容的redux
 import axios from 'axios'
 import io from 'socket.io-client'
-import { stat } from 'fs';
 // 由于我们跨域，后端是9093前端是3000，这里需要链接下
 const socket = io('ws://localhost:9093')
 
@@ -40,11 +39,11 @@ export function chat(state=initState, action) {
 }
 
 function msgList(msgs, users) {
-  return { type: 'MSG_LIST', payload: { msgs, users } }
+  return { type: MSG_LIST, payload: { msgs, users } }
 }
 
 function msgRecv(msg) {
-  return { type: 'MSG_RECV', payload: msg }
+  return { type: MSG_RECV, payload: msg }
 }
 // 获取聊天信息
 export function getMsgList() {
