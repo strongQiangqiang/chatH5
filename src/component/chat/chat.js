@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { NavBar, List, InputItem, Icon, Grid } from 'antd-mobile'
-import { getMsgList, sendMsg, recvMsg } from '../../redux/chat.redux'
+import { getMsgList, sendMsg, recvMsg, readMsg } from '../../redux/chat.redux'
 import { getChatId } from '../../util';
 
 const Item = List.Item
@@ -10,7 +10,7 @@ const Item = List.Item
 // const socket = io('ws://localhost:9093')
 @connect(
   state => state,
- { getMsgList, sendMsg, recvMsg }
+ { getMsgList, sendMsg, recvMsg, readMsg }
 )
 
 class Chat extends Component {
@@ -28,10 +28,12 @@ class Chat extends Component {
       this.props.getMsgList()
       this.props.recvMsg()
     }
-    setTimeout(function(){
-			window.dispatchEvent(new Event('resize'))
-		}, 0)
   }
+  componentWillUnmount(){
+    // 设置信息标记为已读，参数为对方的id
+		const to = this.props.match.params.user
+		this.props.readMsg(to)
+	}
   // 修正antd的grid跑马灯bug，官方推荐方法
   fixCarousel = () => {
     setTimeout(function(){
@@ -80,7 +82,7 @@ class Chat extends Component {
             ) : (
               <List key={v._id}>
                 <Item
-                  extra={<img src={avatar} alt='' />}
+                  extra={<img src={avatar} />}
                   className='chat-me'
                 >{v.content}</Item>
               </List>

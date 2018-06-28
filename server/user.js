@@ -12,7 +12,8 @@ const _filter = {'pwd': 0, '__v': 0}
 // 数据清空
 // Chat.remove({}, function(e, doc) {})
 
-// 调试的用户列表接口
+/*---------------------聊天相关的Start--------------------------*/
+// 获取用户列表接口
 Router.get('/list', function(req, res) {
   // get 用req.query获取，post用req.body获取
   const { type } = req.query
@@ -22,7 +23,7 @@ Router.get('/list', function(req, res) {
     return res.json({ code: 0, data: doc })
   })
 })
-// 获取聊天数据
+// 获取聊天信息数据
 Router.get('/getmsglist', function(req, res) {
   // 获取用户所有信息
   const user = req.cookies.userid
@@ -40,6 +41,26 @@ Router.get('/getmsglist', function(req, res) {
     })
   })
 })
+// 获取聊天已读
+Router.post('/readmsg', function(req, res) {
+	const userid = req.cookies.userid
+	const { from } = req.body
+	Chat.update(
+    // from 是对方，to是自己
+		{ from, to: userid },
+    { '$set': { read: true }},
+    // 如果是修改全局的添加multi
+		{ 'multi': true},
+		function(err,doc) {
+		console.log(doc)
+		if (!err) {
+      // doc.nModified为修改多少行
+			return res.json({ code: 0, num: doc.nModified })
+		}
+		return res.json({ code: 1, msg: '修改失败' })
+	})
+})
+/*---------------------聊天相关的End--------------------------*/
 // 接受参数接口
 Router.post('/update', function(req, res) {
   const userid = req.cookies.userid
