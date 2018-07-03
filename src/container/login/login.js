@@ -4,8 +4,8 @@ import { List, InputItem, WingBlank, WhiteSpace, Button } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { login } from '../../redux/user.redux'
-import Logo from 'Component/logo/logo'
-import imoocFrom from 'Component/imooc-form/imooc-form'
+import Logo from '../../component/logo/logo'
+import imoocFrom from '../../component/imooc-form/imooc-form'
 
 // 高阶组件的理解，函数当参数和函数当返回值
 /*

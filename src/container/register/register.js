@@ -3,8 +3,8 @@ import { List, InputItem, Radio, WhiteSpace, Button } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { register } from '../../redux/user.redux'
-import Logo from 'Component/logo/logo'
-import imoocFrom from 'Component/imooc-form/imooc-form'
+import Logo from '../../component/logo/logo'
+import imoocFrom from '../../component/imooc-form/imooc-form'
 
 const RadioItem = Radio.RadioItem
 @connect(

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import { NavBar, InputItem, TextareaItem, Button } from 'antd-mobile'
-import AvatarSelector from 'Component/avatar-selector/avatar-selector'
+import AvatarSelector from '../../component/avatar-selector/avatar-selector'
 import { connect } from 'react-redux'
 import { update } from '../../redux/user.redux'
 
