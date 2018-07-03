@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import { NavBar, List, InputItem, Icon, Grid } from 'antd-mobile'
 import { getMsgList, sendMsg, recvMsg, readMsg } from '../../redux/chat.redux'
 import { getChatId } from '../../util';
+// 引入蚂蚁金服的动画方案
+import QueueAnim from 'rc-queue-anim'
 
 const Item = List.Item
 // 由于我们跨域，后端是9093前端是3000，这里需要链接下
@@ -72,23 +74,26 @@ class Chat extends Component {
         >
           {chat.users[userid].name}
         </NavBar>
-        {
-          chatmsg.map(v => {
-            const avatar = require(`../img/${chat.users[v.from].avatar}.png`)
-            return v.from === userid ? (
-              <List key={v._id}>
-                <Item thumb={avatar}>{v.content}</Item>
-              </List>
-            ) : (
-              <List key={v._id}>
-                <Item
-                  extra={<img src={avatar} />}
-                  className='chat-me'
-                >{v.content}</Item>
-              </List>
-            )
-          })
-        }
+        {/* 这里使用的时候包一下就好了 */}
+        <QueueAnim delay={100}>
+          {
+            chatmsg.map(v => {
+              const avatar = require(`../img/${chat.users[v.from].avatar}.png`)
+              return v.from === userid ? (
+                <List key={v._id}>
+                  <Item thumb={avatar}>{v.content}</Item>
+                </List>
+              ) : (
+                <List key={v._id}>
+                  <Item
+                    extra={<img src={avatar} alt=''/>}
+                    className='chat-me'
+                  >{v.content}</Item>
+                </List>
+              )
+            })
+          }
+        </QueueAnim>
         <div className='stick-footer'>
           <List>
             <InputItem
