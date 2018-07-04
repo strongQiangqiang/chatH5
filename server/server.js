@@ -77,7 +77,22 @@ app.use(function(req, res, next) {
     applyMiddleware(thunk)
   ))
   let context = {}
-  const markup = renderToString(
+  res.write(`<!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+          <meta name="theme-color" content="#000000">
+          <title>haha</title>
+          <link rel="stylesheet" href="/${staticPath['main.css']}">
+        </head>
+        <body>
+          <noscript>
+            You need to enable JavaScript to run this app.
+          </noscript>
+          <div id="root">`)
+  // 用react16新的renderToNodeStream，解析成流的状态渲染
+  const markupStream = renderToNodeStream(
     (<Provider store={store}>
       <StaticRouter
         location={req.url}
@@ -87,23 +102,16 @@ app.use(function(req, res, next) {
       </StaticRouter>
     </Provider>)
   )
-  const pageHtml = `<!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="theme-color" content="#000000">
-        <title>haha</title>
-        <link rel="stylesheet" href="/${staticPath['main.css']}">
-      </head>
-      <body>
-        <noscript>
-          You need to enable JavaScript to run this app.
-        </noscript>
-        <div id="root">${markup}</div>
-      </body>
-      <script src="/${staticPath['main.js']}"></script>
-    </html>`
+  markupStream.pipe(res, {end: false})
+  markupStream.on('end', () => {
+    res.write(
+      `</div>
+        </body>
+        <script src="/${staticPath['main.js']}"></script>
+      </html>`
+    )
+    res.end()
+  })
   // const htmlRes = (<App></App>)
   res.send(pageHtml)
   // return res.sendFile(path.resolve('build/index.html'))

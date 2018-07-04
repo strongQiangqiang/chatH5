@@ -23,7 +23,8 @@ const store = createStore(reducers, compose(
 ))
 
 // boss genius me msg 4个页面
-ReactDom.render(
+// 这里配合react新的服务端渲染的renderToNodeStream把render换成hydate
+ReactDom.hydate(
   (
     <Provider store={store}>
       <BrowserRouter>
