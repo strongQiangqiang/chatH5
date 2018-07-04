@@ -68,19 +68,15 @@ class Dashboard extends Component {
     return (
       <div>
         <NavBar className='fixd-header'  mode='dard'>
-          { 
-            navList.find(v => v.path === pathname).title
-          }
+          { page.title }
         </NavBar>
         <div>
           {/* 让动画生效，之渲染一个Router，根据当前的path决定组件 */}
-          <QueueAnim type='scalex' duration={800}>
+          <QueueAnim type='scaleX' duration={800}>
             <Route path={page.path} component={page.component}></Route>
           </QueueAnim>
         </div>
-        <NavLinkBar
-          data={navList}
-        />
+        <NavLinkBar data={navList}></NavLinkBar>
       </div>
     )
   }
