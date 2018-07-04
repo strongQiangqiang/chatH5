@@ -64,7 +64,8 @@ class Dashboard extends Component {
         component: User
       }
     ]
-    const page = navList.find(v => v.path === pathname)
+    let pages = navList.find(v => v.path === pathname)
+    const page = pages ? pages : navList[3]
     return (
       <div>
         <NavBar className='fixd-header'  mode='dard'>

@@ -22,7 +22,7 @@ import { StaticRouter } from 'react-router-dom'
 // 引入redux,applyMiddleware是处理中间件的,compose是用来组合函数的
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import { renderToString, renderToStaticMarkup } from 'react-dom/server'
+import { renderToString, renderToNodeStream } from 'react-dom/server'
 import staticPath from '../build/asset-manifest.json'
 import App from '../src/app'
 import reducers from '../src/reducer'
